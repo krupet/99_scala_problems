@@ -6,3 +6,24 @@ package com.krupet
 class Library {
   def someLibraryMethod(): Boolean = true
 }
+
+object Util {
+  def shuffleEvenIndexes(in: List[Int]): List[Int] = {
+
+    def swap(a: Int, b: Int): List[Int] = if (a % 2 == 0) List(a, b) else List(b, a)
+
+    def shuffle(list: List[Int]): List[Int] = list match {
+      case first::Nil => List(first)
+      case first::second::Nil => swap(first,second)
+      case first::second::tail => swap(first,second) ::: shuffle(tail)
+    }
+
+    shuffle(in)
+  }
+}
+
+object App {
+  def main(args: Array[String]): Unit = {
+    println(Util.shuffleEvenIndexes(List(1, 2, 3, 4, 5)))
+  }
+}
